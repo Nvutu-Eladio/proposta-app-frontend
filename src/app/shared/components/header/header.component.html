@@ -1,0 +1,24 @@
+<header class="app-header">
+  <div class="header-content">
+    <h1 class="header-title">{{ title }}</h1>
+    <div class="header-actions">
+      <button
+        *ngIf="showCadastrar"
+        class="btn-cadastrar"
+        (click)="navigateToCadastrar()"
+        aria-label="Cadastrar nova proposta"
+      >
+        <span class="btn-icon">+</span>
+        Cadastrar
+      </button>
+      <button
+        *ngIf="showRecolher"
+        class="btn-recolher"
+        (click)="recolher()"
+        aria-label="Recolher lista"
+      >
+        Recolher
+      </button>
+    </div>
+  </div>
+</header>
