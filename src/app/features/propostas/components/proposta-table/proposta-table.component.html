@@ -1,0 +1,29 @@
+<div class="table-wrapper">
+  <table class="proposta-table" aria-label="Lista de propostas">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Prazo</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let proposta of propostas; let i = index" [class.even]="i % 2 === 0">
+        <td data-label="Nome">{{ proposta.nome }} {{ proposta.sobreNome }}</td>
+        <td data-label="CPF">{{ proposta.cpf | cpfFormat }}</td>
+        <td data-label="Valor">{{ proposta.valorSolicitadoFmt }}</td>
+        <td data-label="Prazo">{{ proposta.prazoPagamento }} meses</td>
+        <td data-label="Status">
+          <span class="status-badge" [class.aprovada]="proposta.aprovada" [class.pendente]="!proposta.aprovada">
+            {{ getStatus(proposta) }}
+          </span>
+        </td>
+      </tr>
+      <tr *ngIf="propostas.length === 0">
+        <td colspan="5" class="empty-message">Nenhuma proposta encontrada.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

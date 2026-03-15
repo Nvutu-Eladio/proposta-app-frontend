@@ -1,0 +1,142 @@
+<div class="form-page">
+  <app-header title="Cadastrar Proposta" [showCadastrar]="false" [showRecolher]="true"></app-header>
+
+  <main class="form-content">
+    <div class="form-card">
+      <div class="form-card__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36" height="36" aria-hidden="true">
+          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+        </svg>
+      </div>
+
+      <h2 class="form-card__title">Nova Proposta</h2>
+
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+        {{ successMessage }}
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-error" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome">Nome *</label>
+            <input
+              id="nome"
+              type="text"
+              formControlName="nome"
+              placeholder="Digite seu nome"
+              [class.is-invalid]="isFieldInvalid('nome')"
+              autocomplete="given-name"
+            />
+            <span *ngIf="isFieldInvalid('nome')" class="error-msg">{{ getFieldError('nome') }}</span>
+          </div>
+
+          <div class="form-group">
+            <label for="sobreNome">Sobrenome *</label>
+            <input
+              id="sobreNome"
+              type="text"
+              formControlName="sobreNome"
+              placeholder="Digite seu sobrenome"
+              [class.is-invalid]="isFieldInvalid('sobreNome')"
+              autocomplete="family-name"
+            />
+            <span *ngIf="isFieldInvalid('sobreNome')" class="error-msg">{{ getFieldError('sobreNome') }}</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cpf">CPF *</label>
+            <input
+              id="cpf"
+              type="text"
+              formControlName="cpf"
+              placeholder="000.000.000-00"
+              appCpfMask
+              [class.is-invalid]="isFieldInvalid('cpf')"
+              autocomplete="off"
+              maxlength="14"
+            />
+            <span *ngIf="isFieldInvalid('cpf')" class="error-msg">{{ getFieldError('cpf') }}</span>
+          </div>
+
+          <div class="form-group">
+            <label for="telefone">Telefone *</label>
+            <input
+              id="telefone"
+              type="tel"
+              formControlName="telefone"
+              placeholder="(11) 99999-9999"
+              [class.is-invalid]="isFieldInvalid('telefone')"
+              autocomplete="tel"
+            />
+            <span *ngIf="isFieldInvalid('telefone')" class="error-msg">{{ getFieldError('telefone') }}</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="renda">Renda (R$) *</label>
+            <input
+              id="renda"
+              type="number"
+              formControlName="renda"
+              placeholder="0,00"
+              [class.is-invalid]="isFieldInvalid('renda')"
+              min="0.01"
+              step="0.01"
+            />
+            <span *ngIf="isFieldInvalid('renda')" class="error-msg">{{ getFieldError('renda') }}</span>
+          </div>
+
+          <div class="form-group">
+            <label for="valorSolicitado">Valor Solicitado (R$) *</label>
+            <input
+              id="valorSolicitado"
+              type="number"
+              formControlName="valorSolicitado"
+              placeholder="0,00"
+              [class.is-invalid]="isFieldInvalid('valorSolicitado')"
+              min="0.01"
+              step="0.01"
+            />
+            <span *ngIf="isFieldInvalid('valorSolicitado')" class="error-msg">{{ getFieldError('valorSolicitado') }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="prazoPagamento">
+            Prazo em meses *
+            <span class="prazo-value">{{ prazoPagamentoValue }} mês{{ prazoPagamentoValue === 1 ? '' : 'es' }}</span>
+          </label>
+          <input
+            id="prazoPagamento"
+            type="range"
+            formControlName="prazoPagamento"
+            min="1"
+            max="24"
+            step="1"
+            class="slider"
+          />
+          <div class="slider-labels">
+            <span>1 mês</span>
+            <span>24 meses</span>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="isLoading"
+        >
+          <span *ngIf="isLoading" class="btn-spinner"></span>
+          {{ isLoading ? 'Enviando...' : 'Enviar para análise' }}
+        </button>
+      </form>
+    </div>
+  </main>
+</div>
