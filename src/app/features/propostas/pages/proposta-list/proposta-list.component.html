@@ -2,17 +2,12 @@
   <app-header title="Resultado" [showCadastrar]="true" [showRecolher]="false"></app-header>
 
   <main class="list-content">
-    <div *ngIf="isLoading" class="loading-container">
-      <app-loading-spinner></app-loading-spinner>
-    </div>
-
-    <div *ngIf="errorMessage && !isLoading" class="alert alert-error">
+    <div *ngIf="errorMessage" class="alert alert-error">
       <span>{{ errorMessage }}</span>
       <button class="btn-retry" (click)="carregarPropostas()">Tentar novamente</button>
     </div>
 
     <app-proposta-table
-      *ngIf="!isLoading"
       [propostas]="propostas"
     ></app-proposta-table>
   </main>
